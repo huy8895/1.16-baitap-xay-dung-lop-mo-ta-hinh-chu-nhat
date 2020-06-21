@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lop mo ta hinh chu nhat</title>
+</head>
+<body>
+<canvas id="canvas" width="500px" height="400px" style="border: 1px solid black"></canvas>
+<script>
+    function Rectangle(height, width) {
+        this.height = height;
+        this.width = width;
+        this.getArea = function () {
+            return height*width;
+        }
+        this.getPerimeter = function () {
+            return 2*(height + width)
+        }
+        this.createRectangle = function () {
+            let rect = document.getElementById('canvas').getContext('2d');
+            let width = Math.floor(Math.random() * 100);
+            let height = Math.floor(Math.random() * 100);
+            let x = Math.random() * document.getElementById('canvas').width;
+            let y = Math.random() * document.getElementById('canvas').width;
+            rect.beginPath();
+            rect.rect(x, y ,width , height);
+            rect.stroke();
+            let color1 = getRandomColor();
+            let color2 = getRandomColor();
+            let grd = rect.createLinearGradient(0,0,width,0);
+            grd.addColorStop(1,color1);
+            grd.addColorStop(0,color2);
+            rect.fillStyle = grd;
+            rect.fillRect(x,y,width,height);
+        }
+    }
+    function getRandomHex(){
+        return Math.floor(Math.random()*255);
+    }
+
+    function getRandomColor(){
+        let red = getRandomHex();
+        let green = getRandomHex();
+        let blue = getRandomHex();
+        return "rgb(" + red + "," + blue + "," + green +")";
+    }
+
+    let newRect = new Rectangle();
+    function createMultiRect(n){
+        for (let i = 0; i < n; i ++){
+            newRect.createRectangle();
+        }
+    }
+    createMultiRect(1000)
+
+
+</script>
+</body>
+</html>
